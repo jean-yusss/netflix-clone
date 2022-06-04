@@ -6,9 +6,16 @@ import Banner from '../components/Banner/Banner';
 
 import requests from '../utils/requests';
 
-const HomePage = ({ netflixOriginals }) => {
-  console.log(netflixOriginals);
-
+const HomePage = ({
+  netflixOriginals,
+  trendingNow,
+  topRated,
+  actionMovies,
+  comedyMovies,
+  horrorMovies,
+  romanceMovies,
+  documentaries,
+}) => {
   return (
     <div tw='relative h-screen bg-gradient-to-b lg:h-[140vh]'>
       <Head>
@@ -18,8 +25,8 @@ const HomePage = ({ netflixOriginals }) => {
 
       <Header />
 
-      <main>
-        <Banner />
+      <main tw='relative pl-4 lg:space-y-24 lg:pl-12'>
+        <Banner netflixOriginals={netflixOriginals} />
       </main>
     </div>
   );
