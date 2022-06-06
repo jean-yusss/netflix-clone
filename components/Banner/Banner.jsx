@@ -29,16 +29,16 @@ const Banner = ({ netflixOriginals }) => {
       <h1 tw='text-2xl font-bold md:text-4xl lg:text-5xl'>
         {movie?.title || movie?.name || movie?.original_name}
       </h1>
-      <p tw='max-w-xs text-xs md:text-sm md:max-w-lg lg:text-base'>
+      <p tw='max-w-xs text-xs md:max-w-sm lg:max-w-md lg:text-base'>
         {movie?.overview}
       </p>
 
       <div tw='flex space-x-3'>
-        <button tw='flex items-center gap-x-2 rounded px-4 py-1.5 text-sm font-semibold transition hover:opacity-75 md:px-6 md:text-lg bg-white text-black'>
-          <FaPlay tw='h-4 w-4 text-black md:h-6 md:w-6' /> Play
+        <button tw='flex items-center gap-x-2 rounded px-4 py-1.5 text-sm font-semibold transition hover:opacity-75 md:px-5 lg:px-6 lg:text-lg bg-white text-black'>
+          <FaPlay tw='h-4 w-4 text-black md:h-5 md:w-5 lg:h-6 lg:w-6' /> Play
         </button>
-        <button tw='flex items-center gap-x-2 rounded px-4 py-1.5 text-sm font-semibold transition hover:opacity-75 md:px-6 md:text-lg bg-[gray] bg-opacity-70'>
-          <IoIosInformationCircleOutline tw='h-5 w-5 md:h-8 md:w-8' />
+        <button tw='flex items-center gap-x-2 rounded px-4 py-1.5 text-sm font-semibold transition hover:opacity-75 md:px-5 lg:px-6 lg:text-lg bg-[gray] bg-opacity-70'>
+          <IoIosInformationCircleOutline tw='h-5 w-5 md:h-7 md:w-7 lg:h-8 lg:w-8' />
           More Info
         </button>
       </div>

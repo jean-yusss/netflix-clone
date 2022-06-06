@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import Header from '../components/Header/Header';
 import Banner from '../components/Banner/Banner';
+import Row from '../components/Row/Row';
 
 import requests from '../utils/requests';
 
@@ -14,19 +15,29 @@ const HomePage = ({
   comedyMovies,
   horrorMovies,
   romanceMovies,
-  documentaries,
+  documentaries
 }) => {
   return (
     <div tw='relative h-screen bg-gradient-to-b lg:h-[140vh]'>
       <Head>
-        <title>Netflix</title>
+        <title>Home - Netflix</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <Header />
 
-      <main tw='relative pl-4 lg:space-y-24 lg:pl-12'>
+      <main tw='relative pl-8 pb-24 lg:space-y-24 lg:pl-12'>
         <Banner netflixOriginals={netflixOriginals} />
+
+        <section>
+          <Row title='Trending Now' movies={trendingNow} />
+          <Row title='Top Rated' movies={topRated} />
+          <Row title='Action Thrillers' movies={actionMovies} />
+          <Row title='Comedies' movies={comedyMovies} />
+          <Row title='Scary Movies' movies={horrorMovies} />
+          <Row title='Romance Movies' movies={romanceMovies} />
+          <Row title='Documentaries' movies={documentaries} />
+        </section>
       </main>
     </div>
   );
@@ -43,7 +54,7 @@ export const getServerSideProps = async () => {
     comedyMovies,
     horrorMovies,
     romanceMovies,
-    documentaries,
+    documentaries
   ] = await Promise.all([
     fetch(requests.fetchNetflixOriginals).then((res) => res.json()),
     fetch(requests.fetchTrending).then((res) => res.json()),
@@ -52,7 +63,7 @@ export const getServerSideProps = async () => {
     fetch(requests.fetchComedyMovies).then((res) => res.json()),
     fetch(requests.fetchHorrorMovies).then((res) => res.json()),
     fetch(requests.fetchRomanceMovies).then((res) => res.json()),
-    fetch(requests.fetchDocumentaries).then((res) => res.json()),
+    fetch(requests.fetchDocumentaries).then((res) => res.json())
   ]);
 
   return {
@@ -64,7 +75,7 @@ export const getServerSideProps = async () => {
       comedyMovies: comedyMovies.results,
       horrorMovies: horrorMovies.results,
       romanceMovies: romanceMovies.results,
-      documentaries: documentaries.results,
-    },
+      documentaries: documentaries.results
+    }
   };
 };

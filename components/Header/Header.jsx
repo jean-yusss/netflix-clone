@@ -25,12 +25,12 @@ const Header = () => {
         <img
           src='https://rb.gy/ulxxee'
           alt='logo'
-          width={100}
-          height={100}
+          width={95}
+          height={95}
           tw='cursor-pointer object-contain'
         />
 
-        <ul tw='hidden space-x-4 md:flex'>
+        <ul tw='hidden space-x-4 lg:flex'>
           <li tw='cursor-pointer text-sm font-light text-[#E5E5E5] transition duration-[0.4s] hover:text-[#B3B3B3]'>
             Home
           </li>
@@ -41,23 +41,27 @@ const Header = () => {
             Movies
           </li>
           <li tw='cursor-pointer text-sm font-light text-[#E5E5E5] transition duration-[0.4s] hover:text-[#B3B3B3]'>
-            New & Popular
+            {'New & Popular'}
           </li>
           <li tw='cursor-pointer text-sm font-light text-[#E5E5E5] transition duration-[0.4s] hover:text-[#B3B3B3]'>
             My List
+          </li>
+          <li tw='cursor-pointer text-sm font-light text-[#E5E5E5] transition duration-[0.4s] hover:text-[#B3B3B3]'>
+            {'Audio & Subtitles'}
           </li>
         </ul>
       </div>
 
       <div tw='flex items-center space-x-4 text-sm font-light'>
-        <HiSearch tw='hidden h-6 w-6 sm:inline' />
+        <HiSearch tw='h-6 w-6' />
         <p tw='hidden lg:inline'>Kids</p>
+        <p tw='hidden lg:inline'>DVD</p>
         <HiBell tw='h-6 w-6' />
         <Link href='/account'>
           <img
             src='https://rb.gy/g1pwyx'
             alt='account'
-            tw='cursor-pointer rounded'
+            tw='cursor-pointer rounded h-7 w-7'
           />
         </Link>
       </div>
