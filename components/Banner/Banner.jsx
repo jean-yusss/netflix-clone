@@ -11,7 +11,7 @@ const Banner = ({ netflixOriginals }) => {
     setMovie(
       netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)]
     );
-  }, []);
+  }, [netflixOriginals]);
 
   return (
     <div tw='flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12'>
