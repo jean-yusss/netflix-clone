@@ -6,6 +6,7 @@ import Banner from '../components/Banner/Banner';
 import Row from '../components/Row/Row';
 
 import requests from '../utils/requests';
+import useAuth from '../hooks/useAuth';
 
 const HomePage = ({
   netflixOriginals,
@@ -17,6 +18,10 @@ const HomePage = ({
   romanceMovies,
   documentaries
 }) => {
+  const { loading } = useAuth();
+
+  if (loading) return null;
+
   return (
     <div tw='relative h-screen bg-gradient-to-b lg:h-[140vh]'>
       <Head>

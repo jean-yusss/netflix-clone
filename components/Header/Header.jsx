@@ -2,9 +2,11 @@ import tw from 'twin.macro';
 import { HiSearch, HiBell } from 'react-icons/hi';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import useAuth from '../../hooks/useAuth';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,13 +59,14 @@ const Header = () => {
         <p tw='hidden lg:inline'>Kids</p>
         <p tw='hidden lg:inline'>DVD</p>
         <HiBell tw='h-6 w-6' />
-        <Link href='/account'>
-          <img
-            src='https://rb.gy/g1pwyx'
-            alt='account'
-            tw='cursor-pointer rounded h-7 w-7'
-          />
-        </Link>
+        {/* <Link href='/account'> */}
+        <img
+          onClick={logout}
+          src='https://rb.gy/g1pwyx'
+          alt='account'
+          tw='cursor-pointer rounded h-7 w-7'
+        />
+        {/* </Link> */}
       </div>
     </header>
   );

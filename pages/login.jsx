@@ -1,11 +1,14 @@
+import 'twin.macro';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import 'twin.macro';
+
+import useAuth from '../hooks/useAuth';
 
 const LoginPage = () => {
   const [login, setLogin] = useState(false);
+  const { signIn, signUp } = useAuth();
 
   const {
     register,
@@ -13,7 +16,9 @@ const LoginPage = () => {
     formState: { errors }
   } = useForm();
 
-  const onSubmit = data => console.log(data);
+  const onSubmit = async ({ email, password }) => {
+    login ? await signIn(email, password) : await signUp(email, password);
+  };
 
   return (
     <div tw='relative flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent'>
@@ -73,13 +78,20 @@ const LoginPage = () => {
           </label>
         </div>
 
-        <button tw='w-full rounded bg-[#E50914] py-3 font-semibold'>
+        <button
+          onClick={() => setLogin(true)}
+          tw='w-full rounded bg-[#E50914] py-3 font-semibold'
+        >
           Sign In
         </button>
 
         <div tw='text-[gray]'>
           {'New to Netflix? '}
-          <button type='submit' tw='text-white hover:underline'>
+          <button
+            type='submit'
+            onClick={() => setLogin(false)}
+            tw='text-white hover:underline'
+          >
             Sign up now
           </button>
         </div>
