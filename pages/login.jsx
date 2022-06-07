@@ -1,8 +1,20 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import 'twin.macro';
 
 const LoginPage = () => {
+  const [login, setLogin] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
+
+  const onSubmit = data => console.log(data);
+
   return (
     <div tw='relative flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent'>
       <Head>
@@ -26,23 +38,38 @@ const LoginPage = () => {
         tw='absolute left-4 top-4 cursor-pointer object-contain md:top-6 md:left-6 lg:left-8 xl:left-10'
       />
 
-      <form tw='relative mt-24 space-y-8 rounded bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:px-14'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        tw='relative mt-24 space-y-8 rounded bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:px-14'
+      >
         <h1 tw='text-4xl font-semibold'>Sign In</h1>
 
         <div tw='space-y-4'>
           <label tw='inline-block w-full'>
             <input
               type='email'
-              placeholder='Email'
+              placeholder='Email or phone number'
+              {...register('email', { required: true })}
               tw='w-full rounded bg-[#333] px-5 py-3.5 placeholder-[gray] outline-none focus:bg-[#454545]'
             />
+            {errors.email && (
+              <p tw='p-1 text-[13px] font-light text-[#E87C03]'>
+                Please enter a valid email or phone number.
+              </p>
+            )}
           </label>
           <label tw='inline-block w-full'>
             <input
               type='password'
               placeholder='Password'
+              {...register('password', { required: true })}
               tw='w-full rounded bg-[#333] px-5 py-3.5 placeholder-[gray] outline-none focus:bg-[#454545]'
             />
+            {errors.email && (
+              <p tw='p-1 text-[13px] font-light text-[#E87C03]'>
+                Your password must contain between 4 and 60 characters.
+              </p>
+            )}
           </label>
         </div>
 
