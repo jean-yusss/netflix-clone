@@ -1,12 +1,15 @@
 import 'twin.macro';
 import Head from 'next/head';
+import { useRecoilValue } from 'recoil';
 
 import Header from '../components/Header/Header';
 import Banner from '../components/Banner/Banner';
+import Modal from '../components/Modal/Modal';
 import Row from '../components/Row/Row';
 
 import requests from '../utils/requests';
 import useAuth from '../hooks/useAuth';
+import { modalState } from '../atoms/modalAtom';
 
 const HomePage = ({
   netflixOriginals,
@@ -18,6 +21,7 @@ const HomePage = ({
   romanceMovies,
   documentaries
 }) => {
+  const showModal = useRecoilValue(modalState);
   const { loading } = useAuth();
 
   if (loading) return null;
@@ -44,6 +48,8 @@ const HomePage = ({
           <Row title='Documentaries' movies={documentaries} />
         </section>
       </main>
+
+      {showModal && <Modal />}
     </div>
   );
 };

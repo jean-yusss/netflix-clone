@@ -3,9 +3,13 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { FaPlay } from 'react-icons/fa';
 import { IoIosInformationCircleOutline } from 'react-icons/io';
+import { useRecoilState } from 'recoil';
+import { modalState, movieState } from '../../atoms/modalAtom';
 
 const Banner = ({ netflixOriginals }) => {
   const [movie, setMovie] = useState(null);
+  const [showModal, setShowModal] = useRecoilState(modalState);
+  const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
 
   useEffect(() => {
     setMovie(
@@ -37,7 +41,13 @@ const Banner = ({ netflixOriginals }) => {
         <button tw='flex items-center gap-x-2 rounded px-4 py-1.5 text-sm font-semibold transition hover:opacity-75 md:px-5 lg:px-6 lg:text-lg bg-white text-black'>
           <FaPlay tw='h-4 w-4 text-black md:h-5 md:w-5 lg:h-6 lg:w-6' /> Play
         </button>
-        <button tw='flex items-center gap-x-2 rounded px-4 py-1.5 text-sm font-semibold transition hover:opacity-75 md:px-5 lg:px-6 lg:text-lg bg-[gray] bg-opacity-70'>
+        <button
+          onClick={() => {
+            setCurrentMovie(movie);
+            setShowModal(true);
+          }}
+          tw='flex items-center gap-x-2 rounded px-4 py-1.5 text-sm font-semibold transition hover:opacity-75 md:px-5 lg:px-6 lg:text-lg bg-[gray] bg-opacity-70'
+        >
           <IoIosInformationCircleOutline tw='h-5 w-5 md:h-7 md:w-7 lg:h-8 lg:w-8' />
           More Info
         </button>
