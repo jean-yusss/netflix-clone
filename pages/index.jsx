@@ -1,15 +1,18 @@
 import 'twin.macro';
 import Head from 'next/head';
 import { useRecoilValue } from 'recoil';
+import { getProducts } from '@stripe/firestore-stripe-payments';
 
 import Header from '../components/Header/Header';
 import Banner from '../components/Banner/Banner';
 import Modal from '../components/Modal/Modal';
 import Row from '../components/Row/Row';
+import Plans from '../components/Plans/Plans';
 
 import requests from '../utils/requests';
 import useAuth from '../hooks/useAuth';
 import { modalState } from '../atoms/modalAtom';
+import payments from '../lib/stripe';
 
 const HomePage = ({
   netflixOriginals,
@@ -19,12 +22,16 @@ const HomePage = ({
   comedyMovies,
   horrorMovies,
   romanceMovies,
-  documentaries
+  documentaries,
+  plans
 }) => {
   const showModal = useRecoilValue(modalState);
   const { loading } = useAuth();
+  const subscription = false;
 
-  if (loading) return null;
+  if (loading || subscription === null) return null;
+
+  if (!subscription) return <Plans plans={plans} />;
 
   return (
     <div tw='relative h-screen bg-gradient-to-b lg:h-[140vh]'>
@@ -77,6 +84,13 @@ export const getServerSideProps = async () => {
     fetch(requests.fetchDocumentaries).then(res => res.json())
   ]);
 
+  const plans = await getProducts(payments, {
+    includePrices: true,
+    activeOnly: true
+  })
+    .then(res => res)
+    .catch(err => console.error(err.message));
+
   return {
     props: {
       netflixOriginals: netflixOriginals.results,
@@ -86,7 +100,8 @@ export const getServerSideProps = async () => {
       comedyMovies: comedyMovies.results,
       horrorMovies: horrorMovies.results,
       romanceMovies: romanceMovies.results,
-      documentaries: documentaries.results
+      documentaries: documentaries.results,
+      plans
     }
   };
 };
