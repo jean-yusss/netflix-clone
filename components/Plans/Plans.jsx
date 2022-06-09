@@ -7,11 +7,19 @@ import tw from 'twin.macro';
 import useAuth from '../../hooks/useAuth';
 import Table from '../Table/Table';
 import Loader from '../Loader/Loader';
+import { loadCheckout } from '../../lib/stripe';
 
 const Plans = ({ plans }) => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState(plans[2]);
   const [isStripeLoading, setIsStripeLoading] = useState(false);
+
+  const subscribeToPlan = () => {
+    if (!user) return;
+
+    loadCheckout(selectedPlan?.prices[0]?.id);
+    setIsStripeLoading(true);
+  };
 
   return (
     <div>
@@ -80,9 +88,9 @@ const Plans = ({ plans }) => {
             disabled={!selectedPlan || isStripeLoading}
             tw='mx-auto w-11/12 rounded bg-[#E50914] py-4 text-xl shadow hover:bg-[#F6121D] md:w-[420px]'
             css={isStripeLoading && tw`opacity-60`}
-            // onClick={subscribeToPlan}
+            onClick={subscribeToPlan}
           >
-            {!isStripeLoading ? <Loader /> : 'Subscribe'}
+            {isStripeLoading ? <Loader /> : 'Subscribe'}
           </button>
         </div>
       </main>
