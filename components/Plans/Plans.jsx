@@ -1,13 +1,15 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState } from 'react';
 import { HiOutlineCheck } from 'react-icons/hi';
-import 'twin.macro';
+import tw from 'twin.macro';
 
 import useAuth from '../../hooks/useAuth';
 import Table from '../Table/Table';
 
 const Plans = ({ plans }) => {
   const { logout } = useAuth();
+  const [selectedPlan, setSelectedPlan] = useState(plans[2]);
 
   return (
     <div>
@@ -58,13 +60,19 @@ const Plans = ({ plans }) => {
               <div
                 key={plan.id}
                 tw='relative mx-1.5 flex h-20 w-[calc(100%/3)] bg-[#E50914] cursor-pointer items-center justify-center rounded-sm font-semibold shadow after:absolute after:top-full after:left-1/2 after:block after:-translate-x-1/2 after:border-8 after:border-b-0 after:border-transparent after:border-t-[#E50914] after:content-[""] md:h-32 lg:mx-8'
+                css={
+                  selectedPlan?.id === plan.id
+                    ? tw`opacity-100`
+                    : tw`opacity-60`
+                }
+                onClick={() => setSelectedPlan(plan)}
               >
                 {plan.name}
               </div>
             ))}
           </div>
 
-          <Table plans={plans} />
+          <Table plans={plans} selectedPlan={selectedPlan} />
 
           <button>Subscribe</button>
         </div>

@@ -1,7 +1,7 @@
 import { HiOutlineCheck } from 'react-icons/hi';
-import 'twin.macro';
+import tw from 'twin.macro';
 
-const Table = ({ plans }) => {
+const Table = ({ plans, selectedPlan }) => {
   return (
     <table>
       <tbody tw='divide-y divide-[gray]'>
@@ -13,6 +13,11 @@ const Table = ({ plans }) => {
             <td
               key={plan.id}
               tw='w-[calc(100%/3)] p-2.5 text-center md:w-[calc(60%/3)] md:p-3.5'
+              css={
+                selectedPlan.id === plan.id
+                  ? tw`text-[#E50914]`
+                  : tw`text-[gray]`
+              }
             >
               ${plan.prices[0].unit_amount / 100}
             </td>
@@ -27,6 +32,11 @@ const Table = ({ plans }) => {
             <td
               key={plan.id}
               tw='w-[calc(100%/3)] p-2.5 text-center md:w-[calc(60%/3)] md:p-3.5'
+              css={
+                selectedPlan.id === plan.id
+                  ? tw`text-[#E50914]`
+                  : tw`text-[gray]`
+              }
             >
               {plan.metadata.videoQuality}
             </td>
@@ -41,6 +51,11 @@ const Table = ({ plans }) => {
             <td
               key={plan.id}
               tw='w-[calc(100%/3)] p-2.5 text-center md:w-[calc(60%/3)] md:p-3.5'
+              css={
+                selectedPlan.id === plan.id
+                  ? tw`text-[#E50914]`
+                  : tw`text-[gray]`
+              }
             >
               {plan.metadata.resolution}
             </td>
@@ -55,8 +70,13 @@ const Table = ({ plans }) => {
             <td
               key={plan.id}
               tw='w-[calc(100%/3)] p-2.5 text-center md:w-[calc(60%/3)] md:p-3.5'
+              css={
+                selectedPlan.id === plan.id
+                  ? tw`text-[#E50914]`
+                  : tw`text-[gray]`
+              }
             >
-              {plan.metadata.portability && (
+              {plan.metadata.portability === 'true' && (
                 <HiOutlineCheck tw='h-8 w-8 inline-block' />
               )}
             </td>
