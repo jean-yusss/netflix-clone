@@ -4,6 +4,7 @@ import { HiOutlineCheck } from 'react-icons/hi';
 import 'twin.macro';
 
 import useAuth from '../../hooks/useAuth';
+import Table from '../Table/Table';
 
 const Plans = ({ plans }) => {
   const { logout } = useAuth();
@@ -62,6 +63,8 @@ const Plans = ({ plans }) => {
               </div>
             ))}
           </div>
+
+          <Table plans={plans} />
 
           <button>Subscribe</button>
         </div>
