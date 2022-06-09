@@ -11,6 +11,7 @@ import Plans from '../components/Plans/Plans';
 
 import requests from '../utils/requests';
 import useAuth from '../hooks/useAuth';
+import useSubscription from '../hooks/useSubscription';
 import { modalState } from '../atoms/modalAtom';
 import payments from '../lib/stripe';
 
@@ -26,8 +27,8 @@ const HomePage = ({
   plans
 }) => {
   const showModal = useRecoilValue(modalState);
-  const { loading } = useAuth();
-  const subscription = false;
+  const { loading, user } = useAuth();
+  const subscription = useSubscription(user);
 
   if (loading || subscription === null) return null;
 
