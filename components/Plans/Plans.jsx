@@ -6,10 +6,12 @@ import tw from 'twin.macro';
 
 import useAuth from '../../hooks/useAuth';
 import Table from '../Table/Table';
+import Loader from '../Loader/Loader';
 
 const Plans = ({ plans }) => {
   const { logout } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState(plans[2]);
+  const [isStripeLoading, setIsStripeLoading] = useState(false);
 
   return (
     <div>
@@ -34,7 +36,7 @@ const Plans = ({ plans }) => {
         </button>
       </header>
 
-      <main tw='pt-28 max-w-5xl px-5 pb-12 transition-all md:px-10'>
+      <main tw='pt-28 max-w-5xl px-5 pb-12 transition-all mx-auto md:px-10'>
         <h1 tw='mb-3 text-3xl font-medium'>
           {`Choose the plan that's right for you`}
         </h1>
@@ -74,7 +76,14 @@ const Plans = ({ plans }) => {
 
           <Table plans={plans} selectedPlan={selectedPlan} />
 
-          <button>Subscribe</button>
+          <button
+            disabled={!selectedPlan || isStripeLoading}
+            tw='mx-auto w-11/12 rounded bg-[#E50914] py-4 text-xl shadow hover:bg-[#F6121D] md:w-[420px]'
+            css={isStripeLoading && tw`opacity-60`}
+            // onClick={subscribeToPlan}
+          >
+            {!isStripeLoading ? <Loader /> : 'Subscribe'}
+          </button>
         </div>
       </main>
     </div>
