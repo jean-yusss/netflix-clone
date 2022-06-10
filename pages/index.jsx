@@ -14,6 +14,7 @@ import useAuth from '../hooks/useAuth';
 import useSubscription from '../hooks/useSubscription';
 import { modalState } from '../atoms/modalAtom';
 import payments from '../lib/stripe';
+import useList from '../hooks/useList';
 
 const HomePage = ({
   netflixOriginals,
@@ -29,6 +30,7 @@ const HomePage = ({
   const showModal = useRecoilValue(modalState);
   const { loading, user } = useAuth();
   const subscription = useSubscription(user);
+  const list = useList(user?.uid);
 
   if (loading || subscription === null) return null;
 
@@ -47,6 +49,7 @@ const HomePage = ({
         <Banner netflixOriginals={netflixOriginals} />
 
         <section tw='md:space-y-12'>
+          {list.length > 0 && <Row title='My List' movies={list} />}
           <Row title='Trending Now' movies={trendingNow} />
           <Row title='Top Rated' movies={topRated} />
           <Row title='Action Thrillers' movies={actionMovies} />
