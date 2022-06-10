@@ -3,6 +3,7 @@ import { HiSearch, HiBell } from 'react-icons/hi';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
+import DropdownMenu from '../DropdownMenu/DropdownMenu';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,6 +31,8 @@ const Header = () => {
           height={95}
           tw='cursor-pointer object-contain'
         />
+
+        <DropdownMenu />
 
         <ul tw='hidden space-x-4 lg:flex'>
           <li tw='cursor-pointer text-sm font-light text-[#E5E5E5] transition duration-[0.4s] hover:text-[#B3B3B3]'>
