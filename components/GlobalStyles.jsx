@@ -10,6 +10,10 @@ const CustomStyles = createGlobalStyle`
     ${tw`fixed top-0 z-50 flex w-full items-center justify-between px-8 py-2 transition-all lg:px-12 lg:py-5`}
   }
 
+  .loader {
+    ${tw`m-auto h-7 w-7 animate-spin text-gray-200 fill-[#E50914]`}
+  }
+
   .menu {
     ${tw`md:hidden`}
   }
@@ -28,10 +32,10 @@ const CustomStyles = createGlobalStyle`
 `;
 
 const GlobalStyles = () => (
-  <>
-    <BaseStyles />
-    <CustomStyles />
-  </>
+	<>
+		<BaseStyles />
+		<CustomStyles />
+	</>
 );
 
 export default GlobalStyles;
