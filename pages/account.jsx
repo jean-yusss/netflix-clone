@@ -5,7 +5,7 @@ import 'twin.macro';
 import Membership from '../components/Membership/Membership';
 import useAuth from '../hooks/useAuth';
 import useSubscription from '../hooks/useSubscription';
-import payments from '../lib/stripe';
+import payments, { goToBillingPortal } from '../lib/stripe';
 
 const AccountPage = ({ plans }) => {
   const { user, logout } = useAuth();
@@ -53,11 +53,14 @@ const AccountPage = ({ plans }) => {
         <Membership />
 
         <div tw='mt-6 grid grid-cols-1 gap-x-4 border p-4 md:grid-cols-4 md:border-l-0 md:border-r-0 md:border-t md:border-b-0 md:px-0 md:pb-0 '>
-          <h2>Plan Details</h2>
-          <div>
+          <h2 tw='text-lg text-[gray]'>Plan Details</h2>
+          <div tw='col-span-2 font-medium'>
             {plans.filter(plan => plan.id === subscription?.product)[0]?.name}
           </div>
-          <p tw='cursor-pointer text-blue-500 hover:underline md:text-right'>
+          <p
+            onClick={subscription && goToBillingPortal}
+            tw='cursor-pointer text-blue-500 hover:underline md:text-right'
+          >
             Change Plan
           </p>
         </div>
