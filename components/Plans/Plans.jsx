@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HiOutlineCheck } from 'react-icons/hi';
 import tw from 'twin.macro';
 
@@ -8,11 +8,19 @@ import useAuth from '../../hooks/useAuth';
 import Table from '../Table/Table';
 import Loader from '../Loader/Loader';
 import { loadCheckout } from '../../lib/stripe';
+import { useRecoilState } from 'recoil';
+import { planState, selectedPlanState } from '../..//atoms/planAtom';
 
-const Plans = ({ plans }) => {
+const PlansPage = ({ plans }) => {
   const { logout, user } = useAuth();
-  const [selectedPlan, setSelectedPlan] = useState(plans[2]);
+  const [selectedPlan, setSelectedPlan] = useRecoilState(selectedPlanState);
+  const [plansArray, setPlansArray] = useRecoilState(planState);
   const [isStripeLoading, setIsStripeLoading] = useState(false);
+
+  useEffect(() => {
+    setSelectedPlan(plans[2]);
+    setPlansArray(plans);
+  }, [plans]);
 
   const subscribeToPlan = () => {
     if (!user) return;
@@ -82,7 +90,7 @@ const Plans = ({ plans }) => {
             ))}
           </div>
 
-          <Table plans={plans} selectedPlan={selectedPlan} />
+          <Table />
 
           <button
             disabled={!selectedPlan || isStripeLoading}
@@ -98,4 +106,4 @@ const Plans = ({ plans }) => {
   );
 };
 
-export default Plans;
+export default PlansPage;

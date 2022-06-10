@@ -1,7 +1,12 @@
 import tw from 'twin.macro';
 import { HiOutlineCheck } from 'react-icons/hi';
+import { useRecoilValue } from 'recoil';
+import { planState, selectedPlanState } from '../../atoms/planAtom';
 
-const TableRow = ({ title, plans, selectedPlan }) => {
+const TableRow = ({ title }) => {
+  const selectedPlan = useRecoilValue(selectedPlanState);
+  const plans = useRecoilValue(planState);
+
   return (
     <tr tw='flex flex-wrap items-center font-medium'>
       <td tw='w-full p-2.5 text-center text-sm font-normal text-white md:w-2/5 md:p-3.5 md:text-left md:text-base'>
