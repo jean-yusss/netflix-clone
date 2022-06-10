@@ -1,29 +1,24 @@
-import 'twin.macro';
-import { HiOutlineCheck } from 'react-icons/hi';
+import { CheckIcon, List, ListItem, PlansTitle } from './PlansHeadingStyles';
 
-const PlansHeading = () => {
-  return (
-    <>
-      <h1 tw='mb-3 text-3xl font-medium'>
-        {`Choose the plan that's right for you`}
-      </h1>
+const PlansHeading = () => (
+	<>
+		<PlansTitle>{`Choose the plan that's right for you`}</PlansTitle>
 
-      <ul>
-        <li tw='flex items-center gap-x-2 text-lg'>
-          <HiOutlineCheck tw='h-7 w-7 text-[#E50914]' />
-          Watch all you want. Ad-free.
-        </li>
-        <li tw='flex items-center gap-x-2 text-lg'>
-          <HiOutlineCheck tw='h-7 w-7 text-[#E50914]' />
-          Recommendations just for you.
-        </li>
-        <li tw='flex items-center gap-x-2 text-lg'>
-          <HiOutlineCheck tw='h-7 w-7 text-[#E50914]' />
-          Change or cancel your plan anytime.
-        </li>
-      </ul>
-    </>
-  );
-};
+		<List>
+			<ListItem>
+				<CheckIcon />
+				Watch all you want. Ad-free.
+			</ListItem>
+			<ListItem>
+				<CheckIcon />
+				Recommendations just for you.
+			</ListItem>
+			<ListItem>
+				<CheckIcon />
+				Change or cancel your plan anytime.
+			</ListItem>
+		</List>
+	</>
+);
 
 export default PlansHeading;
