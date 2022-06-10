@@ -1,57 +1,46 @@
-import tw from 'twin.macro';
-import { HiSearch, HiBell } from 'react-icons/hi';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+
 import DropdownMenu from '../DropdownMenu/DropdownMenu';
 import Navigation from '../Navigation/Navigation';
 
+import * as S from './HeaderStyles';
+
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+	const [isScrolled, setIsScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      window.scrollY > 0 ? setIsScrolled(true) : setIsScrolled(false);
-    };
+	useEffect(() => {
+		const handleScroll = () => {
+			window.scrollY > 0 ? setIsScrolled(true) : setIsScrolled(false);
+		};
 
-    window.addEventListener('scroll', handleScroll);
+		window.addEventListener('scroll', handleScroll);
 
-    // Cleanup function
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+		// Cleanup function
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
 
-  return (
-    <header css={isScrolled && tw`bg-[#141414]`}>
-      <div tw='flex items-center space-x-2 md:space-x-10'>
-        <img
-          src='https://rb.gy/ulxxee'
-          alt='logo'
-          width={95}
-          height={95}
-          tw='cursor-pointer object-contain'
-        />
+	return (
+		<S.HeaderContainer $isScrolled={isScrolled}>
+			<S.LeftContainer>
+				<S.NetflixLogo />
+				<DropdownMenu />
+				<Navigation />
+			</S.LeftContainer>
 
-        <DropdownMenu />
-
-        <Navigation />
-      </div>
-
-      <div tw='flex items-center space-x-4 text-sm font-light'>
-        <HiSearch tw='h-6 w-6' />
-        <p tw='hidden lg:inline'>Kids</p>
-        <p tw='hidden lg:inline'>DVD</p>
-        <HiBell tw='h-6 w-6' />
-        <Link href='/account'>
-          <img
-            src='https://rb.gy/g1pwyx'
-            alt='account'
-            tw='cursor-pointer rounded h-7 w-7'
-          />
-        </Link>
-      </div>
-    </header>
-  );
+			<S.RightContainer>
+				<S.SearchIcon />
+				<S.HeaderText>Kids</S.HeaderText>
+				<S.HeaderText>DVD</S.HeaderText>
+				<S.BellIcon />
+				<Link href='/account'>
+					<S.AccountIcon />
+				</Link>
+			</S.RightContainer>
+		</S.HeaderContainer>
+	);
 };
 
 export default Header;
