@@ -1,59 +1,51 @@
-import 'twin.macro';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { FaPlay } from 'react-icons/fa';
-import { IoIosInformationCircleOutline } from 'react-icons/io';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
+
 import { modalState, movieState } from '../../atoms/modalAtom';
 
+import * as S from './BannerStyles';
+
 const Banner = ({ netflixOriginals }) => {
-  const [movie, setMovie] = useState(null);
-  const [showModal, setShowModal] = useRecoilState(modalState);
-  const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
+	const [movie, setMovie] = useState(null);
+	const setShowModal = useSetRecoilState(modalState);
+	const setCurrentMovie = useSetRecoilState(movieState);
 
-  useEffect(() => {
-    setMovie(
-      netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)]
-    );
-  }, [netflixOriginals]);
+	useEffect(() => {
+		setMovie(netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)]);
+	}, [netflixOriginals]);
 
-  return (
-    <div tw='flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12'>
-      <div tw='absolute top-0 left-0 h-[95vh] w-screen z-[-10]'>
-        <Image
-          src={`https://image.tmdb.org/t/p/original/${
-            movie?.backdrop_path || movie?.poster_path
-          }`}
-          alt='banner'
-          layout='fill'
-          objectFit='cover'
-        />
-      </div>
+	return (
+		<S.BannerContainer>
+			<S.BackgroundImage>
+				<Image
+					src={`https://image.tmdb.org/t/p/original/${
+						movie?.backdrop_path || movie?.poster_path
+					}`}
+					alt='banner'
+					layout='fill'
+					objectFit='cover'
+				/>
+			</S.BackgroundImage>
 
-      <h1 tw='text-2xl font-bold md:text-4xl lg:text-5xl'>
-        {movie?.title || movie?.name || movie?.original_name}
-      </h1>
-      <p tw='max-w-xs text-xs md:max-w-sm lg:max-w-md lg:text-base'>
-        {movie?.overview}
-      </p>
+			<S.MovieTitle>{movie?.title || movie?.name || movie?.original_name}</S.MovieTitle>
+			<S.MovieOverview>{movie?.overview}</S.MovieOverview>
 
-      <div tw='flex space-x-3'>
-        <button tw='flex items-center gap-x-2 rounded px-4 py-1.5 text-sm font-semibold transition hover:opacity-75 md:px-5 lg:px-6 lg:text-lg bg-white text-black'>
-          <FaPlay tw='h-4 w-4 text-black md:h-5 md:w-5 lg:h-6 lg:w-6' /> Play
-        </button>
-        <button
-          onClick={() => {
-            setCurrentMovie(movie);
-            setShowModal(true);
-          }}
-          tw='flex items-center gap-x-2 rounded px-4 py-1.5 text-sm font-semibold transition hover:opacity-75 md:px-5 lg:px-6 lg:text-lg bg-[gray] bg-opacity-70'
-        >
-          <IoIosInformationCircleOutline tw='h-5 w-5 md:h-7 md:w-7 lg:h-8 lg:w-8' />
-          More Info
-        </button>
-      </div>
-    </div>
-  );
+			<S.ButtonContainer>
+				<S.PlayButton>
+					<S.PlayIcon /> Play
+				</S.PlayButton>
+				<S.MoreInfoButton
+					onClick={() => {
+						setCurrentMovie(movie);
+						setShowModal(true);
+					}}
+				>
+					<S.MoreInfoIcon /> More Info
+				</S.MoreInfoButton>
+			</S.ButtonContainer>
+		</S.BannerContainer>
+	);
 };
 
 export default Banner;
