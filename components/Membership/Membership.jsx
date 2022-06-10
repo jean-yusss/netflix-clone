@@ -31,6 +31,49 @@ const Membership = () => {
           {isStripeLoading ? <Loader /> : 'Cancel Membership'}
         </button>
       </div>
+
+      <div tw='col-span-3'>
+        <div tw='flex flex-col justify-between border-b border-white/10 py-4 md:flex-row'>
+          <div>
+            <p tw='font-medium'>{user?.email}</p>
+            <p tw='text-[gray]'>Password: ********</p>
+          </div>
+          <div tw='md:text-right'>
+            <p tw='cursor-pointer text-blue-500 hover:underline'>
+              Change email
+            </p>
+            <p tw='cursor-pointer text-blue-500 hover:underline'>
+              Change password
+            </p>
+          </div>
+        </div>
+
+        <div tw='flex flex-col justify-between py-4 md:flex-row md:pb-0'>
+          <div>
+            <p>
+              {subscription?.cancel_at_period_end
+                ? 'Your membership will end on '
+                : 'Your next billing date is '}
+              {subscription?.current_period_end}
+            </p>
+          </div>
+
+          <div tw='md:text-right'>
+            <p tw='cursor-pointer text-blue-500 hover:underline'>
+              Manage payment info
+            </p>
+            <p tw='cursor-pointer text-blue-500 hover:underline'>
+              Add backup payment method
+            </p>
+            <p tw='cursor-pointer text-blue-500 hover:underline'>
+              Billing details
+            </p>
+            <p tw='cursor-pointer text-blue-500 hover:underline'>
+              Change billing day
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
