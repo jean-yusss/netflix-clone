@@ -14,6 +14,10 @@ const CustomStyles = createGlobalStyle`
     ${tw`m-auto h-7 w-7 animate-spin text-gray-200 fill-[#E50914]`}
   }
 
+  .image {
+    ${tw`rounded-sm object-cover`}
+  }
+
   .menu {
     ${tw`md:hidden`}
   }
