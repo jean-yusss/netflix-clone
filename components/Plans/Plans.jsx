@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { HiOutlineCheck } from 'react-icons/hi';
 import tw from 'twin.macro';
 
 import useAuth from '../../hooks/useAuth';
@@ -10,6 +9,7 @@ import Loader from '../Loader/Loader';
 import { loadCheckout } from '../../lib/stripe';
 import { useRecoilState } from 'recoil';
 import { planState, selectedPlanState } from '../..//atoms/planAtom';
+import PlansHeading from '../PlansHeading/PlansHeading';
 
 const PlansPage = ({ plans }) => {
   const { logout, user } = useAuth();
@@ -53,24 +53,7 @@ const PlansPage = ({ plans }) => {
       </header>
 
       <main tw='pt-28 max-w-5xl px-5 pb-12 transition-all mx-auto md:px-10'>
-        <h1 tw='mb-3 text-3xl font-medium'>
-          {`Choose the plan that's right for you`}
-        </h1>
-
-        <ul>
-          <li tw='flex items-center gap-x-2 text-lg'>
-            <HiOutlineCheck tw='h-7 w-7 text-[#E50914]' />
-            Watch all you want. Ad-free.
-          </li>
-          <li tw='flex items-center gap-x-2 text-lg'>
-            <HiOutlineCheck tw='h-7 w-7 text-[#E50914]' />
-            Recommendations just for you.
-          </li>
-          <li tw='flex items-center gap-x-2 text-lg'>
-            <HiOutlineCheck tw='h-7 w-7 text-[#E50914]' />
-            Change or cancel your plan anytime.
-          </li>
-        </ul>
+        <PlansHeading />
 
         <div tw='mt-4 flex flex-col space-y-4'>
           <div tw='flex w-full items-center justify-center self-end md:w-3/5'>
