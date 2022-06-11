@@ -18,6 +18,10 @@ const CustomStyles = createGlobalStyle`
     ${tw`rounded-sm object-cover`}
   }
 
+  .login-bg {
+    ${tw`z-[-10] !hidden opacity-60 sm:!inline`}
+  }
+
   .menu {
     ${tw`md:hidden`}
   }
