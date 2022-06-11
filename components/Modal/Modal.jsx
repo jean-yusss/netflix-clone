@@ -1,27 +1,27 @@
-import 'twin.macro';
-import MuiModal from '@mui/material/Modal';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { HiOutlineX } from 'react-icons/hi';
-
 import { useEffect, useState } from 'react';
-import { Toaster } from 'react-hot-toast';
-
-import { listState, modalState, movieState, mutedState } from '../../atoms/modalAtom';
 import ReactPlayer from 'react-player';
+import { Toaster } from 'react-hot-toast';
 import { collection, onSnapshot } from 'firebase/firestore';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+
 import { db } from '../../lib/firebase';
 import useAuth from '../../hooks/useAuth';
 import ModalController from '../ModalController/ModalController';
+import { listState, modalState, movieState, mutedState } from '../../atoms/modalAtom';
+
+import * as S from './ModalStyles';
 
 const Modal = () => {
 	const { user } = useAuth();
-	const [showModal, setShowModal] = useRecoilState(modalState);
+
 	const movie = useRecoilValue(movieState);
-	const [trailer, setTrailer] = useState('');
-	const [genres, setGenres] = useState([]);
 	const muted = useRecoilValue(mutedState);
 	const setAddedToList = useSetRecoilState(listState);
+	const [showModal, setShowModal] = useRecoilState(modalState);
+
+	const [genres, setGenres] = useState([]);
 	const [movies, setMovies] = useState([]);
+	const [trailer, setTrailer] = useState('');
 
 	const handleClose = () => {
 		setShowModal(false);
@@ -69,21 +69,15 @@ const Modal = () => {
 	}, [movies]);
 
 	return (
-		<MuiModal
-			open={showModal}
-			onClose={handleClose}
-			tw='fixed !top-7 left-0 right-0 z-50 mx-auto w-full max-w-4xl overflow-hidden overflow-y-scroll rounded-md'
-		>
+		<S.ModalContainer open={showModal} onClose={handleClose}>
 			<>
 				<Toaster position='bottom-center' />
-				<button
-					onClick={handleClose}
-					tw='flex items-center justify-center rounded-full transition absolute right-5 top-5 !z-40 h-9 w-9 border-none bg-[#181818]'
-				>
-					<HiOutlineX tw='h-6 w-6' />
-				</button>
 
-				<div tw='relative pt-[56.25%]'>
+				<S.CloseButton onClick={handleClose}>
+					<S.XIcon />
+				</S.CloseButton>
+
+				<S.PlayerContainer>
 					<ReactPlayer
 						url={`https://www.youtube.com/watch?v=${trailer}`}
 						width='100%'
@@ -94,44 +88,45 @@ const Modal = () => {
 					/>
 
 					<ModalController />
-				</div>
+				</S.PlayerContainer>
 
-				<div tw='flex space-x-16 rounded-b-md bg-[#181818] px-10 py-8'>
-					<div tw='space-y-6'>
-						<h2 tw='text-2xl md:text-3xl'>{movie?.title || movie?.name}</h2>
+				<S.VideoInfoContainer>
+					<S.VideoInfo>
+						<S.VideoTitle>{movie?.title || movie?.name}</S.VideoTitle>
 
-						<div tw='flex items-center space-x-2'>
-							<p tw='font-semibold text-[#46D369]'>{movie?.vote_average * 10}% Match</p>
-							<p tw='font-light'>{movie?.release_date || movie?.first_air_date}</p>
+						<S.MetaData>
+							<S.Match>{movie?.vote_average * 10}% Match</S.Match>
+							<S.ReleaseDate>
+								{movie?.release_date || movie?.first_air_date}
+							</S.ReleaseDate>
 
-							<div tw='flex h-4 items-center justify-center rounded border border-white/40 px-1.5 text-xs'>
-								HD
-							</div>
-						</div>
+							<S.HD>HD</S.HD>
+						</S.MetaData>
 
-						<div tw='flex flex-col gap-x-10 gap-y-4 font-light md:flex-row'>
-							<p tw='w-5/6'>{movie?.overview}</p>
-							<div tw='flex flex-col space-y-3 text-sm'>
-								<div>
-									<span tw='text-[gray]'>Genres: </span>
+						<S.MiscellaneousData>
+							<S.Overview>{movie?.overview}</S.Overview>
+
+							<S.VideoTags>
+								<S.Div>
+									<S.VideoTag>Genres: </S.VideoTag>
 									{genres?.map(genre => genre.name).join(', ')}
-								</div>
+								</S.Div>
 
-								<div>
-									<span tw='text-[gray]'>Original language: </span>
+								<S.Div>
+									<S.VideoTag>Original language: </S.VideoTag>
 									{movie?.original_language}
-								</div>
+								</S.Div>
 
-								<div>
-									<span tw='text-[gray]'>Total votes: </span>
+								<S.Div>
+									<S.VideoTag>Total votes: </S.VideoTag>
 									{movie?.vote_count}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+								</S.Div>
+							</S.VideoTags>
+						</S.MiscellaneousData>
+					</S.VideoInfo>
+				</S.VideoInfoContainer>
 			</>
-		</MuiModal>
+		</S.ModalContainer>
 	);
 };
 
