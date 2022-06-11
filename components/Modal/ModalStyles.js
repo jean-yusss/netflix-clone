@@ -58,8 +58,6 @@ export const VideoTags = tw.div`
   flex flex-col space-y-3 text-sm
 `;
 
-export const Div = tw.div``;
-
 export const VideoTag = tw.span`
   text-[gray]
 `;

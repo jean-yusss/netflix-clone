@@ -6,8 +6,9 @@ import useAuth from '../../hooks/useAuth';
 import * as S from './LoginFormStyles';
 
 const LoginForm = () => {
-	const [login, setLogin] = useState(false);
 	const { signIn, signUp } = useAuth();
+
+	const [login, setLogin] = useState(false);
 
 	const {
 		register,

@@ -107,20 +107,20 @@ const Modal = () => {
 							<S.Overview>{movie?.overview}</S.Overview>
 
 							<S.VideoTags>
-								<S.Div>
+								<>
 									<S.VideoTag>Genres: </S.VideoTag>
 									{genres?.map(genre => genre.name).join(', ')}
-								</S.Div>
+								</>
 
-								<S.Div>
+								<>
 									<S.VideoTag>Original language: </S.VideoTag>
 									{movie?.original_language}
-								</S.Div>
+								</>
 
-								<S.Div>
+								<>
 									<S.VideoTag>Total votes: </S.VideoTag>
 									{movie?.vote_count}
-								</S.Div>
+								</>
 							</S.VideoTags>
 						</S.MiscellaneousData>
 					</S.VideoInfo>

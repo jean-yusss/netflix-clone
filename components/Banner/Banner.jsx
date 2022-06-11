@@ -8,6 +8,7 @@ import * as S from './BannerStyles';
 
 const Banner = ({ netflixOriginals }) => {
 	const [movie, setMovie] = useState(null);
+
 	const setShowModal = useSetRecoilState(modalState);
 	const setCurrentMovie = useSetRecoilState(movieState);
 

@@ -9,8 +9,8 @@ import {
 } from './TableRowStyles';
 
 const TableRow = ({ title }) => {
-	const selectedPlan = useRecoilValue(selectedPlanState);
 	const plans = useRecoilValue(planState);
+	const selectedPlan = useRecoilValue(selectedPlanState);
 
 	return (
 		<TableRowContainter>
