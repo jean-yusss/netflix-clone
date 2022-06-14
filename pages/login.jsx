@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { Toaster } from 'react-hot-toast';
 
 import LoginForm from '../components/LoginForm/LoginForm';
 
@@ -7,6 +8,7 @@ import * as S from '../styles/LoginPageStyles';
 
 const LoginPage = () => (
 	<S.LoginPageContainer>
+		<Toaster position='top-center' />
 		<Head>
 			<title>Netflix</title>
 			<link rel='icon' href='/favicon.ico' />

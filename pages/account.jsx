@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { getProducts } from '@stripe/firestore-stripe-payments';
+import { Toaster } from 'react-hot-toast';
 
 import Membership from '../components/Membership/Membership';
 
@@ -16,6 +17,7 @@ const AccountPage = ({ plans }) => {
 
 	return (
 		<>
+			<Toaster position='top-center' />
 			<Head>
 				<title>Account Settings - Netflix</title>
 				<link rel='icon' href='/favicon.ico' />

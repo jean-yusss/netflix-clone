@@ -20,7 +20,7 @@ const ModalController = () => {
 			await deleteDoc(doc(db, 'customers', user?.uid, 'myList', movie?.id.toString()));
 
 			toast(`${movie?.title || movie?.original_name} has been removed from My List`, {
-				duration: 3000
+				style: S.toastStyles
 			});
 		} else {
 			await setDoc(doc(db, 'customers', user?.uid, 'myList', movie?.id.toString()), {
@@ -28,7 +28,7 @@ const ModalController = () => {
 			});
 
 			toast(`${movie?.title || movie?.original_name} has been added to My List`, {
-				duration: 3000
+				style: S.toastStyles
 			});
 		}
 	};

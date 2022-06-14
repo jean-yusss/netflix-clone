@@ -1,11 +1,11 @@
 import { atom } from 'recoil';
 
 export const planState = atom({
-  key: 'planState',
-  default: []
+	key: 'planState',
+	default: []
 });
 
 export const selectedPlanState = atom({
-  key: 'selectedPlanState',
-  default: null
+	key: 'selectedPlanState',
+	default: null
 });
