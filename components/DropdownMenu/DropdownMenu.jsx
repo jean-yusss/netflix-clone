@@ -1,55 +1,52 @@
-import 'twin.macro';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 
 import useAuth from '../../hooks/useAuth';
 
+import * as S from './DropdownMenuStyles';
+
 const DropdownMenu = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const { logout } = useAuth();
+	const [anchorEl, setAnchorEl] = useState(null);
+	const open = Boolean(anchorEl);
+	const { logout } = useAuth();
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
+	const handleClick = event => {
+		setAnchorEl(event.currentTarget);
+	};
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
-  return (
-    <div tw='md:!hidden'>
-      <Button
-        id='basic-button'
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup='true'
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        tw='!capitalize !text-white'
-      >
-        Browse
-      </Button>
-      <Menu
-        id='basic-menu'
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        className='menu'
-        MenuListProps={{
-          'aria-labelledby': 'basic-button'
-        }}
-      >
-        <MenuItem onClick={handleClose}>Home</MenuItem>
-        <MenuItem onClick={handleClose}>TV Shows</MenuItem>
-        <MenuItem onClick={handleClose}>Movies</MenuItem>
-        <MenuItem onClick={handleClose}>New & Popular</MenuItem>
-        <MenuItem onClick={handleClose}>My List</MenuItem>
-        <MenuItem onClick={logout}>Sign out of Netflix</MenuItem>
-      </Menu>
-    </div>
-  );
+	return (
+		<S.DropdownMenuContainer>
+			<S.Browse
+				id='basic-button'
+				aria-controls={open ? 'basic-menu' : undefined}
+				aria-haspopup='true'
+				aria-expanded={open ? 'true' : undefined}
+				onClick={handleClick}
+			>
+				Browse
+			</S.Browse>
+			<S.Menu
+				id='basic-menu'
+				anchorEl={anchorEl}
+				open={open}
+				onClose={handleClose}
+				MenuListProps={{
+					'aria-labelledby': 'basic-button'
+				}}
+			>
+				<S.MenuItem onClick={handleClose}>Home</S.MenuItem>
+				<S.MenuItem onClick={handleClose}>TV Shows</S.MenuItem>
+				<S.MenuItem onClick={handleClose}>Movies</S.MenuItem>
+				<S.MenuItem onClick={handleClose}>{'New & Popular'}</S.MenuItem>
+				<S.MenuItem onClick={handleClose}>My List</S.MenuItem>
+				<S.MenuItem onClick={handleClose}>{'Audio & Subtitles'}</S.MenuItem>
+				<S.MenuItem onClick={logout}>Logout</S.MenuItem>
+			</S.Menu>
+		</S.DropdownMenuContainer>
+	);
 };
 
 export default DropdownMenu;

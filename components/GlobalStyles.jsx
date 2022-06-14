@@ -21,22 +21,6 @@ const CustomStyles = createGlobalStyle`
   .login-bg {
     ${tw`z-[-10] !hidden opacity-60 sm:!inline`}
   }
-
-  .menu {
-    ${tw`md:hidden`}
-  }
-
-  .menu .MuiPaper-root {
-    ${tw`!absolute !left-0 !rounded-none !border !border-[gray] !bg-black !text-white`}
-  }
-
-  .menu .MuiList-root {
-    ${tw`!p-0`}
-  }
-
-  .menu .MuiMenuItem-root {
-    ${tw`!block !w-72 !py-3.5 !text-center !text-sm !font-light !text-[#b3b3b3] !transition !duration-200 first:cursor-default first:!font-normal first:!text-white hover:!bg-[#11100F]`}
-  }
 `;
 
 const GlobalStyles = () => (
