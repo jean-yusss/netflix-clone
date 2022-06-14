@@ -1,81 +1,72 @@
 import { useState } from 'react';
-import 'twin.macro';
+
 import Loader from '../Loader/Loader';
 
 import useAuth from '../../hooks/useAuth';
 import useSubscription from '../../hooks/useSubscription';
 import { goToBillingPortal } from '../../lib/stripe';
 
+import * as S from './MembershipStyles';
+
 const Membership = () => {
-  const { user } = useAuth();
-  const subscription = useSubscription(user);
-  const [isStripeLoading, setIsStripeLoading] = useState(false);
+	const { user } = useAuth();
+	const subscription = useSubscription(user);
 
-  const manageSubscription = () => {
-    if (subscription) {
-      setIsStripeLoading(true);
-      goToBillingPortal();
-    }
-  };
+	const [isStripeLoading, setIsStripeLoading] = useState(false);
 
-  return (
-    <div tw='mt-6 grid grid-cols-1 gap-x-4 border px-4 md:grid-cols-4 md:border-l-0 md:border-r-0 md:border-t md:border-b-0 md:px-0'>
-      <div tw='space-y-2 py-4'>
-        <h2 tw='text-lg text-[gray]'>{'Membership & Billing'}</h2>
+	const manageSubscription = () => {
+		if (subscription) {
+			setIsStripeLoading(true);
+			goToBillingPortal();
+		}
+	};
 
-        <button
-          disabled={isStripeLoading || !subscription}
-          tw='h-10 w-3/5 whitespace-nowrap bg-gray-300 py-2 text-sm font-medium text-black shadow-md hover:bg-gray-200 md:w-4/5'
-          onClick={manageSubscription}
-        >
-          {isStripeLoading ? <Loader /> : 'Cancel Membership'}
-        </button>
-      </div>
+	return (
+		<S.MembershipContainer>
+			<S.MembershipHeading>
+				<S.MembershipTitle>{'Membership & Billing'}</S.MembershipTitle>
 
-      <div tw='col-span-3'>
-        <div tw='flex flex-col justify-between border-b border-white/10 py-4 md:flex-row'>
-          <div>
-            <p tw='font-medium'>{user?.email}</p>
-            <p tw='text-[gray]'>Password: ********</p>
-          </div>
-          <div tw='md:text-right'>
-            <p tw='cursor-pointer text-blue-500 hover:underline'>
-              Change email
-            </p>
-            <p tw='cursor-pointer text-blue-500 hover:underline'>
-              Change password
-            </p>
-          </div>
-        </div>
+				<S.CancelMembershipButton
+					disabled={isStripeLoading || !subscription}
+					onClick={manageSubscription}
+				>
+					{isStripeLoading ? <Loader /> : 'Cancel Membership'}
+				</S.CancelMembershipButton>
+			</S.MembershipHeading>
 
-        <div tw='flex flex-col justify-between py-4 md:flex-row md:pb-0'>
-          <div>
-            <p>
-              {subscription?.cancel_at_period_end
-                ? 'Your membership will end on '
-                : 'Your next billing date is '}
-              {subscription?.current_period_end}
-            </p>
-          </div>
+			<S.UserPanel>
+				<S.MembershipDetails>
+					<S.EmailAndPasswordContainer>
+						<S.Email>{user?.email}</S.Email>
+						<S.Password>Password: ********</S.Password>
+					</S.EmailAndPasswordContainer>
 
-          <div tw='md:text-right'>
-            <p tw='cursor-pointer text-blue-500 hover:underline'>
-              Manage payment info
-            </p>
-            <p tw='cursor-pointer text-blue-500 hover:underline'>
-              Add backup payment method
-            </p>
-            <p tw='cursor-pointer text-blue-500 hover:underline'>
-              Billing details
-            </p>
-            <p tw='cursor-pointer text-blue-500 hover:underline'>
-              Change billing day
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+					<S.MembershipLinkContainer>
+						<S.MembershipLink>Change email</S.MembershipLink>
+						<S.MembershipLink>Change password</S.MembershipLink>
+					</S.MembershipLinkContainer>
+				</S.MembershipDetails>
+
+				<S.BillingDetails>
+					<>
+						<S.BillingDate>
+							{subscription?.cancel_at_period_end
+								? 'Your membership will end on '
+								: 'Your next billing date is '}
+							{subscription?.current_period_end}
+						</S.BillingDate>
+					</>
+
+					<S.MembershipLinkContainer>
+						<S.MembershipLink>Manage payment info</S.MembershipLink>
+						<S.MembershipLink>Add backup payment method</S.MembershipLink>
+						<S.MembershipLink>Billing details</S.MembershipLink>
+						<S.MembershipLink>Change billing day</S.MembershipLink>
+					</S.MembershipLinkContainer>
+				</S.BillingDetails>
+			</S.UserPanel>
+		</S.MembershipContainer>
+	);
 };
 
 export default Membership;
